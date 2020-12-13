@@ -3,12 +3,20 @@ module Rbexy
     class AbstractNode
       PrecompileRequired = Class.new(StandardError)
 
+      attr_reader :compile_context
+
       def precompile
         [self]
       end
 
       def compile
         raise PrecompileRequired, "#{self.class.name} must be precompiled first"
+      end
+
+      def inject_compile_context(context)
+        @compile_context = context
+        children.each { |c| c.inject_compile_context(context) } if respond_to?(:children)
+        members.each { |c| c.inject_compile_context(context) } if respond_to?(:members)
       end
 
       private
