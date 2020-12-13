@@ -33,10 +33,11 @@ module Rbexy
       tokens = Lexer.new(template, context.element_resolver).tokenize
       root = Parser.new(tokens).parse
       root.inject_compile_context(context)
+      root.transform!
       root.precompile.compile
     end
 
-    def evaluate(template_string, runtime)
+    def evaluate(template_string, runtime = Rbexy::Runtime.new)
       runtime.evaluate compile(Template.new(template_string))
     end
 

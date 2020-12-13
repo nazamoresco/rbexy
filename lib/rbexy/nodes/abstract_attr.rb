@@ -1,7 +1,7 @@
 module Rbexy
   module Nodes
     class AbstractAttr < AbstractNode
-      attr_reader :name, :value
+      attr_accessor :name, :value
 
       def initialize(name, value)
         @name = name

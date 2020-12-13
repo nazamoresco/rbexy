@@ -19,7 +19,18 @@ module Rbexy
         members.each { |c| c.inject_compile_context(context) } if respond_to?(:members)
       end
 
+      def transform!
+        return unless ast_transformer
+        ast_transformer.transform(self, compile_context)
+        children.each(&:transform!) if respond_to?(:children)
+        members.each(&:transform!) if respond_to?(:members)
+      end
+
       private
+
+      def ast_transformer
+        compile_context.ast_transformer
+      end
 
       def compact(nodes)
         compacted = []
