@@ -4,7 +4,8 @@ module Rbexy
       using Rbexy::Refinements::Array::MapTypeWhenNeighboringType
       using Rbexy::Refinements::Array::InsertBetweenTypes
 
-      attr_reader :members, :outer_template, :inner_template
+      attr_accessor :members
+      attr_reader :outer_template, :inner_template
 
       OUTPUT_UNSAFE = "@output_buffer.concat(Rbexy::Runtime.expr_out(%s));"
       OUTPUT_SAFE = "@output_buffer.safe_concat(Rbexy::Runtime.expr_out(%s));"
